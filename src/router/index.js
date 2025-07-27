@@ -40,6 +40,21 @@ const router = createRouter({
             path: '/auth/error',
             name: 'error',
             component: () => import('@/views/pages/auth/Error.vue')
+        },
+        {
+            path: '/register/university',
+            name: 'universityRegister',
+            component: () => import('@/views/RegistersForms/UniversityForm.vue')
+        },
+        {
+            path: '/register/user',
+            name: 'userRegister',
+            component: () => import('@/views/RegistersForms/UserForm.vue')
+        },
+        {
+            path: '/register/driver',
+            name: 'driverRegister',
+            component: () => import('@/views/RegistersForms/DriverForm.vue')
         }
     ]
 });

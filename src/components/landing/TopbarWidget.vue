@@ -1,4 +1,17 @@
 <script setup>
+import { ref } from 'vue'
+import SelectTypeRegister from './SelectTypeRegister.vue'
+
+const isModalVisible = ref(false)
+
+const openRegistrationModal = () => {
+    isModalVisible.value = true
+}
+
+const closeRegistrationModal = () => {
+    isModalVisible.value = false
+}
+
 function smoothScroll(id) {
     document.body.click();
     const element = document.getElementById(id);
@@ -65,8 +78,13 @@ function smoothScroll(id) {
             </li>
         </ul>
         <div class="flex border-t lg:border-t-0 border-surface py-4 lg:py-0 mt-4 lg:mt-0 gap-2">
-            <Button label="Login" text as="router-link" to="/auth/login" rounded></Button>
-            <Button label="Register" to="/auth/login" rounded></Button>
+            <Button label="Ingresar" text as="router-link" to="/auth/login" rounded></Button>
+            <Button label="Registrarse" @click="openRegistrationModal" rounded></Button>
         </div>
     </div>
+
+    <SelectTypeRegister 
+        :visible="isModalVisible" 
+        @close="closeRegistrationModal" 
+    />
 </template>
