@@ -19,7 +19,7 @@ const router = createRouter({
                     name: 'dashboard',
                     component: () => import('@/views/Dashboard.vue'),
                     meta: {
-                        middleware: ['auth'],
+                        middleware: 'auth',
                         pageTitle: 'Dashboard',
                         icon: 'pi pi-fw pi-home',
                     }
@@ -80,7 +80,7 @@ router.beforeEach((to, from, next) => {
 
     authStore.verifyAuth().then(() => {
         // before page access check if page requires authentication
-        if ("auth" in to.meta.middleware) {
+        if (to.meta.middleware == 'auth') {
             if (authStore.isAuthenticated) {
                 next();
             } else {
