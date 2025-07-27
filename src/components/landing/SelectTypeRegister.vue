@@ -79,7 +79,6 @@ const emit = defineEmits<Emits>()
 const router = useRouter()
 
 const selectType = (type: 'universidad' | 'conductor' | 'usuario') => {
-  // Rutas según el tipo seleccionado
   const routes = {
     universidad: '/register/university',
     conductor: '/register/driver',

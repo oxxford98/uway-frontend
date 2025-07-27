@@ -1,5 +1,6 @@
 <template>
   <div class="min-h-screen flex items-center justify-center bg-surface-50 dark:bg-surface-900 p-4">
+    <Toast />
     <Card class="w-full max-w-2xl">
       <template #header>
         <div class="text-center py-6">
@@ -16,63 +17,122 @@
         <form @submit.prevent="submitForm" class="space-y-6">
           <!-- Nombre de la Universidad -->
           <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
+              Nombre de la Universidad <span class="text-red-500">*</span>
+            </label>
             <InputText 
               v-model="formData.name" 
               class="w-full"
               :invalid="!formData.name && saveAttempted"
               placeholder="Ingrese el nombre de la universidad"
             />
-            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
-              Nombre de la Universidad <span class="text-red-500">*</span>
-            </label>
-            <small 
-              v-if="!formData.name && saveAttempted" 
-              class="text-red-500"
-            >
+            <small v-if="!formData.name && saveAttempted" class="text-red-500">
               El nombre de la universidad es requerido
             </small>
           </div>
 
           <!-- Ciudad -->
           <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
+              Ciudad <span class="text-red-500">*</span>
+            </label>
             <InputText 
               v-model="formData.city" 
               class="w-full"
               :invalid="!formData.city && saveAttempted"
               placeholder="Ingrese la ciudad"
             />
-            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
-              Ciudad <span class="text-red-500">*</span>
-            </label>
-            <small 
-              v-if="!formData.city && saveAttempted" 
-              class="text-red-500"
-            >
+            <small v-if="!formData.city && saveAttempted" class="text-red-500">
               La ciudad es requerida
             </small>
           </div>
 
           <!-- Dirección -->
           <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
+              Dirección <span class="text-red-500">*</span>
+            </label>
             <InputText 
               v-model="formData.address" 
               class="w-full"
               :invalid="!formData.address && saveAttempted"
               placeholder="Ingrese la dirección completa"
             />
-            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
-              Dirección <span class="text-red-500">*</span>
-            </label>
-            <small 
-              v-if="!formData.address && saveAttempted" 
-              class="text-red-500"
-            >
+            <small v-if="!formData.address && saveAttempted" class="text-red-500">
               La dirección es requerida
+            </small>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
+              Número telefónico <span class="text-red-500">*</span>
+            </label>
+            <InputText 
+              v-model="formData.phone_number" 
+              class="w-full"
+              :invalid="!formData.phone_number && saveAttempted"
+              placeholder="Ingrese el número telefónico"
+            />
+            <small v-if="!formData.phone_number && saveAttempted" class="text-red-500">
+              El número telefónico es requerido
+            </small>
+          </div>
+
+          <!-- Email -->
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
+              Email <span class="text-red-500">*</span>
+            </label>
+            <InputText 
+              v-model="formData.email" 
+              type="email"
+              class="w-full"
+              :invalid="!formData.email && saveAttempted"
+              placeholder="Ingrese el email institucional"
+            />
+            <small v-if="!formData.email && saveAttempted" class="text-red-500">
+              El email es requerido
+            </small>
+          </div>
+
+          <!-- Password -->
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
+              Contraseña <span class="text-red-500">*</span>
+            </label>
+            <Password 
+              v-model="formData.password" 
+              class="w-full"
+              :invalid="!formData.password && saveAttempted"
+              placeholder="Ingrese una contraseña"
+              toggleMask
+            />
+            <small v-if="!formData.password && saveAttempted" class="text-red-500">
+              La contraseña es requerida
+            </small>
+          </div>
+
+          <!-- NIT -->
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
+              NIT <span class="text-red-500">*</span>
+            </label>
+            <InputText 
+              v-model="formData.nit" 
+              class="w-full"
+              :invalid="!formData.nit && saveAttempted"
+              placeholder="Ingrese el NIT de la universidad"
+            />
+            <small v-if="!formData.nit && saveAttempted" class="text-red-500">
+              El NIT es requerido
             </small>
           </div>
 
           <!-- Logo (Opcional) -->
           <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
+              Logo de la Universidad <span class="text-surface-500">(Opcional)</span>
+            </label>
             <FileUpload 
               mode="basic" 
               name="logo" 
@@ -84,9 +144,6 @@
               chooseLabel="Seleccionar Logo"
               class="w-full"
             />
-            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
-              Logo de la Universidad <span class="text-surface-500">(Opcional)</span>
-            </label>
             <small class="text-surface-500">
               Tamaño máximo: 1MB. Formatos aceptados: JPG, PNG, GIF
             </small>
@@ -94,6 +151,9 @@
 
           <!-- Colores -->
           <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
+              Colores Institucionales
+            </label>
             <MultiSelect 
               v-model="formData.colors" 
               :options="availableColors" 
@@ -104,9 +164,6 @@
               :maxSelectedLabels="3"
               selectedItemsLabel="{0} colores seleccionados"
             />
-            <label class="text-sm font-medium text-surface-700 dark:text-surface-300">
-              Colores Institucionales
-            </label>
             <small class="text-surface-500">
               Seleccione los colores que representan a su universidad
             </small>
@@ -163,14 +220,22 @@ import InputText from 'primevue/inputtext'
 import FileUpload from 'primevue/fileupload'
 import MultiSelect from 'primevue/multiselect'
 import Button from 'primevue/button'
+import Password from 'primevue/password'
+import ApiService from '@/service/ApiService.js'
+import { useToast } from "primevue/usetoast"
 
 const router = useRouter()
+const toast = useToast()
 
 // Estado del formulario
 const formData = reactive({
   name: '',
   city: '',
   address: '',
+  phone_number: '',
+  email: '',
+  password: '',
+  nit: '',
   logo: null as File | null,
   colors: [] as string[]
 })
@@ -216,7 +281,11 @@ const onLogoClear = () => {
 const validateForm = () => {
   return formData.name.trim() !== '' && 
          formData.city.trim() !== '' && 
-         formData.address.trim() !== ''
+         formData.address.trim() !== '' &&
+         formData.email.trim() !== '' &&
+         formData.password.trim() !== '' &&
+         formData.nit.trim() !== '' &&
+         formData.phone_number.trim() !== ''
 }
 
 // Envío del formulario
@@ -235,27 +304,33 @@ const submitForm = async () => {
     formDataToSend.append('name', formData.name)
     formDataToSend.append('city', formData.city)
     formDataToSend.append('address', formData.address)
+    formDataToSend.append('phone_number', formData.phone_number)
+    formDataToSend.append('email', formData.email)
+    formDataToSend.append('password', formData.password)
+    formDataToSend.append('identification_document', formData.nit)
     formDataToSend.append('colors', JSON.stringify(formData.colors))
     
     if (formData.logo) {
       formDataToSend.append('logo', formData.logo)
     }
 
-    // Aquí harías la llamada al API
-    console.log('Datos a enviar:', {
-      name: formData.name,
-      city: formData.city,
-      address: formData.address,
-      colors: formData.colors,
-      logo: formData.logo
+    // POST al endpoint de universidades usando ApiService
+    await ApiService.post('/universities/', formDataToSend, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    toast.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: 'Solicitud de registro exitosa',
+      life: 3000
     })
 
-    // Simular llamada al API
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    // Redirigir o mostrar mensaje de éxito
-    alert('Universidad registrada exitosamente!')
-    router.push('/')
+    setTimeout(() => {
+      router.push('/')
+    }, 1500)
     
   } catch (error) {
     console.error('Error al registrar universidad:', error)
@@ -265,12 +340,11 @@ const submitForm = async () => {
   }
 }
 
-// Función para volver atrás
+
 const goBack = () => {
   router.go(-1)
 }
 </script>
 
 <style scoped>
-/* Estilos adicionales si son necesarios */
 </style>
